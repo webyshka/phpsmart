@@ -31,11 +31,9 @@ class Calendar {
     }
     public function findDate() {
         $countDays = $this->countDayMonth($this->month - 1) + ($this->year - $this->startYear) * $this->dayInYear  - $this->countVis() + $this->day;
-        if($countDays % 7 == 6) {
-            return $this->days[0];
-        } else {
-            return $this->days[$this->firstDayInStart + ($countDays % 7)];
-        }
+
+        return $this->days[$countDays % 7];
+
     }
 
 }
