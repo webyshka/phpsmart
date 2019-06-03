@@ -31,8 +31,12 @@ class Calendar {
     }
     public function findDate() {
         $countDays = $this->countDayMonth($this->month - 1) + ($this->year - $this->startYear) * $this->dayInYear  - $this->countVis() + $this->day;
-
-        return $this->days[$countDays % 7];
+        $number_array = ($countDays % 7) - 1 + $this->firstDayInStart; // для смещения в массиве и в зависимости от первого дня в 1990 году
+        if($number_array < 0) {
+            return $this->days[6];
+        } else {
+            return $this->days[$countDays % 7];
+        }
 
     }
 
