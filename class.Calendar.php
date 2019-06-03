@@ -34,8 +34,10 @@ class Calendar {
         $number_array = ($countDays % 7) - 1 + $this->firstDayInStart; // для смещения в массиве и в зависимости от первого дня в 1990 году
         if($number_array < 0) {
             return $this->days[6];
+        } elseif($number_array > 6) {
+            return $this->days[$number_array - 7];
         } else {
-            return $this->days[$countDays % 7];
+            return $this->days[$number_array];
         }
 
     }
