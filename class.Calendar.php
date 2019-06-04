@@ -16,10 +16,25 @@ class Calendar {
 
     public function init($date) {
         $date = explode('.',$date);
-        $this->date = $date;
-        $this->month = $date[1];
-        $this->day = $date[0];
-        $this->year = $date[2];
+        $month = $date[1] % 2;
+        if($date[0] < 23) {
+            $year = $date[2] % $this->yearDiff;
+            if($month && $date[0] < $this->monthOdd+1 || !$month && $date[0] < $this->monthEven + 1) {
+                if (!$year && $date[0] > $this->monthOdd - 1 && $date[1] == $this->inYearMonth) {
+                    throw new Exception('Дата не действительна. Высокосный год в последнем месяце имеет не более'.($this->monthOdd - 1).' дн.');
+                } else {
+                    $this->date = $date;
+                    $this->month = $date[1];
+                    $this->day = $date[0];
+                    $this->year = $date[2];
+                }
+            } else {
+                throw new Exception('Дата не действительна. В месяце не более '. ($month ? $this->monthOdd : $this->monthEven) .' дн.');
+            }
+        } else {
+            throw new Exception('Дата не действительна. В месяце не более '. ($month ? $this->monthOdd : $this->monthEven) .' дн.');
+        }
+
     }
 
     public function countDayMonth($month) {
